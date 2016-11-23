@@ -31,6 +31,7 @@ text value`,
   }
 
   virtualServerCallback = (newState) => {
+    console.log(newState);
     if (this.state.simulateXHR) {
     window.setTimeout(function() {
       this.changeState(newState);
@@ -124,7 +125,7 @@ text value`,
         <RFIETextArea
           value={this.state.textarea}
           handleChange={this.virtualServerCallback}
-          name="textarea"
+          name="a.b"
           className={this.state.highlight ? "editable" : ""}
           classLoading="loading"
           classInvalid="invalid" />

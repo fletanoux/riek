@@ -34,11 +34,17 @@ export default class RFIEBase extends React.Component {
 
     commit = (value) => {
         if(!this.state.invalid) {
-            let newProp = {};
-            newProp[this.props.name] = value;
+            const names = this.props.name.split('.');
+            let nestedObject = {};
+            let tmp = value;
+            for (var i = names.length -1; i >= 0; i--) {
+                nestedObject = {};
+                nestedObject[names[i]] = tmp;
+                tmp = nestedObject;
+            }
 
             this.setState({loading: true, newValue: value});
-            this.props.handleChange(newProp);
+            this.props.handleChange(nestedObject);
         }
     };
 
