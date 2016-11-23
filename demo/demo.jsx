@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Highlight from 'react-highlight';
-import {RIEInput, RIEToggle, RIETextArea, RIENumber, RIETags, RIESelect} from '../src/index.js';
+import {RFIEInput, RFIEToggle, RFIETextArea, RFIETags, RFIESelect} from '../src/index.js';
+import {FormsyBootstrap} from 'formsy-react-bootstrap';
 
 class Demo extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-    select : {id: "1", text: "broccoli"},
-    selectOptions : [
-      {id: "1", text: "broccoli"},
-      {id: "2", text: "arugula"},
-      {id: "3", text: "leek"},
-      {id: "4", text: "radish"},
-      {id: "5", text: "watercress"},
-      {id: "6", text: "dandelion"}
+    select : 'a',
+    selectOptions :  [
+      {value: 'a', label: 'Option A'},
+      {value: 'a', label: 'Option A (again)'},
+      {value: 'b', label: 'Option B'},
+      {value: 'c', label: 'Option C', title: 'This is a title attribute for Option C'},
+      {value: 'd', label: 'Option D', disabled: true}
     ],
     boolean : true,
     number : 9000,
@@ -49,7 +49,6 @@ text value`,
   };
 
   isStringEvenNumber = (string) => {
-    console.log('is even: ' + string);
     var number = parseInt(string);
     if (isNaN(number) || !isFinite(number)) return false;
     return number % 2 == 0;
@@ -69,9 +68,15 @@ text value`,
     return text + " ms";
   };
 
+  handleSelect = (newState) => {
+    console.log('handleSelect', newState);
+    this.setState(newState);
+  }
+
   render = () => {
-    let xhrDelaySwitch = (this.state.simulateXHR) ? <li>XHR delay: <RIENumber value={this.state.XHRDelay} change={this.changeState} validate={this.isValidXHRDelay} propName="XHRDelay" className="editable-pill" format={this.formatMillisecondsAppend} /></li> : null;
+    let xhrDelaySwitch = (this.state.simulateXHR) ? <li>XHR delay: <RFIEInput type="number" value={this.state.XHRDelay} handleChange={this.changeState} validate={this.isValidXHRDelay} name="XHRDelay" className="editable-pill" format={this.formatMillisecondsAppend} /></li> : null;
     return <div>
+      <FormsyBootstrap>
     <div className="menu">
       <div className="fifty">
         <h3>Application State</h3>
@@ -86,189 +91,85 @@ text value`,
       </div>
       <div className="fifty">
         <h3>Options</h3>
-        <ul>
-        <li>Simulate XHR: <RIEToggle value={this.state.simulateXHR} change={this.changeState} propName="simulateXHR" textTrue="yes" textFalse="don't" className="editable-pill"/></li>
-        {xhrDelaySwitch}
-        <li>Highlight editable: <RIEToggle value={this.state.highlight} change={this.changeState} propName="highlight" textTrue="highlight" textFalse="don't" className="editable-pill" /></li>
-        <li><RIEToggle value={this.state.showSource} change={this.changeState} propName="showSource" textTrue="Source shown" textFalse="Source hidden" className="editable-pill"/></li>
-        </ul>
       </div>
     </div>
     <div className="content">
       <h3>Toggle</h3>
       <div>
         <span>Default: </span>
-        <RIEToggle
-          value={this.state.boolean}
-          className={this.state.highlight ? "editable" : ""}
-          change={this.virtualServerCallback}
-          classLoading="loading"
-          propName="boolean" />
-        {this.state.showSource ? <Highlight className="jsx">
-        {`<RIEToggle
-  value={this.state.boolean}
-  className={this.state.highlight ? "editable" : ""}
-  change={this.virtualServerCallback}
-  classLoading="loading"
-  propName="boolean" />`}
-        </Highlight> : null}
+
         <br />
         <span>Custom labels: </span>
-        <RIEToggle
-          value={this.state.boolean}
-          className={this.state.highlight ? "editable" : ""}
-          change={this.virtualServerCallback}
-          textTrue="activated"
-          textFalse="deactivated"
-          classLoading="loading"
-          propName="boolean" />
-        {this.state.showSource ? <Highlight className="jsx">
-        {`<RIEToggle
-  value={this.state.boolean}
-  className={this.state.highlight ? "editable" : ""}
-  change={this.virtualServerCallback}
-  textTrue="activated"
-  textFalse="deactivated"
-  classLoading="loading"
-  propName="boolean" />`}
-        </Highlight> : null}
+
       </div>
       <hr />
       <h3>Input</h3>
       <div>
         <span>Default: </span>
-        <RIEInput
+        <RFIEInput
+          help="Test de message d'ehelp"
+          validations="isEmail"
+          validationError="Must be a valid email"
           value={this.state.text}
-          change={this.virtualServerCallback}
-          propName="text"
+          handleChange={this.virtualServerCallback}
+          name="text"
           className={this.state.highlight ? "editable" : ""}
-          validate={this.isStringAcceptable}
           classLoading="loading"
           classInvalid="invalid" />
-        {this.state.showSource ? <Highlight className="jsx">
-        {`<RIEInput
-  value={this.state.text}
-  change={this.virtualServerCallback}
-  propName="text"
-  className={this.state.highlight ? "editable" : ""}
-  validate={this.isStringAcceptable}
-  classLoading="loading"
-  classInvalid="invalid"/>`}
-        </Highlight> : null}
       </div>
       <hr />
       <h3>Textarea</h3>
       <div>
         <p>Default: </p>
-        <RIETextArea
+        <RFIETextArea
           value={this.state.textarea}
-          change={this.virtualServerCallback}
-          propName="textarea"
+          handleChange={this.virtualServerCallback}
+          name="textarea"
           className={this.state.highlight ? "editable" : ""}
-          validate={this.isStringAcceptable}
           classLoading="loading"
           classInvalid="invalid" />
-        {this.state.showSource ? <Highlight className="jsx">
-        {`<RIETextArea
-  value={this.state.textarea}
-  change={this.virtualServerCallback}
-  propName="textarea"
-  className={this.state.highlight ? "editable" : ""}
-  validate={this.isStringAcceptable}
-  classLoading="loading"
-  classInvalid="invalid"/>`}
-        </Highlight> : null}
       </div>
       <hr />
       <h3>Number</h3>
       <div>
         <span>Default: </span>
-        <RIENumber
+        <RFIEInput
           value={this.state.number}
-          change={this.virtualServerCallback}
-          propName="number"
+          handleChange={this.virtualServerCallback}
+          name="number"
           className={this.state.highlight ? "editable" : ""}
           classLoading="loading"
           classInvalid="invalid"/>
-        {this.state.showSource ? <Highlight className="jsx">
-        {`<RIENumber
-  value={this.state.number}
-  change={this.virtualServerCallback}
-  propName="number"
-  className={this.state.highlight ? "editable" : ""}
-  classLoading="loading"
-  classInvalid="invalid"/>`}
-        </Highlight> : null}
         <br />
         <span>Only even, custom formatter: </span>
-        <RIENumber
+        <RFIEInput
           value={this.state.number}
-          change={this.virtualServerCallback}
-          propName="number"
-          format={this.formatInteger}
+          handleChange={this.virtualServerCallback}
+          name="number"
+          type="number"
           classLoading="loading"
           className={this.state.highlight ? "editable" : ""}
-          validate={this.isStringEvenNumber}
           classInvalid="invalid"/>
-        {this.state.showSource ? <Highlight className="jsx">
-        {`<RIENumber
-  value={this.state.number}
-  change={this.virtualServerCallback}
-  propName="number"
-  format={this.formatInteger}
-  classLoading="loading"
-  className={this.state.highlight ? "editable" : ""}
-  validate={this.isStringEvenNumber}
-  classInvalid="invalid"/>`}
-        </Highlight> : null}
       </div>
       <hr />
       <h3>Tags</h3>
       <div>
         <span>Default: </span>
-        <RIETags
-          value={this.state.tags}
-          change={this.virtualServerCallback}
-          maxTags={10}
-          minTags={2}
-          propName="tags"
-          placeholder="New"
-          className={this.state.highlight ? "tags editable" : "tags"}
-          classLoading="loading" />
-        {this.state.showSource ? <Highlight className="jsx">
-        {`<RIETags
-  value={this.state.tags}
-  change={this.virtualServerCallback}
-  maxTags={10}
-  minTags={2}
-  propName="tags"
-  placeholder="New"
-  className={this.state.highlight ? "tags editable" : "tags"}
-  classLoading="loading" />`}
-        </Highlight> : null}
       </div>
       <hr />
       <h3>Select</h3>
       <div>
         <span>Default: </span>
-        <RIESelect
+        <RFIESelect
           value={this.state.select}
           className={this.state.highlight ? "editable" : ""}
           options={this.state.selectOptions}
-          change={this.virtualServerCallback}
+          handleChange={this.virtualServerCallback}
           classLoading="loading"
-          propName="select" />
-        {this.state.showSource ? <Highlight className="jsx">
-        {`<RIESelect
-  value={this.state.select}
-  className={this.state.highlight ? "editable" : ""}
-  options={this.state.selectOptions}
-  change={this.virtualServerCallback}
-  classLoading="loading"
-  propName="select" />`}
-        </Highlight> : null}
+          name="select" />
       </div>
     </div>
+  </FormsyBootstrap>
     </div>;
   };
 }

@@ -1,10 +1,10 @@
 #React Inline Edit Kit
 An assortment of common HTML form elements, editable in-line the React way.
 
-Try out [the demo](http://kaivi.github.io/riek/) and see what it looks like.
+This is a fork of https://github.com/kaivi/riek Huge thanks for his work
 
 #Installation
-`npm install riek --save-dev` *(`--save-dev` because you don't usually want to build and pack JS/CSS when in production)*
+`npm install rfiek --save-dev` *(`--save-dev` because you don't usually want to build and pack JS/CSS when in production)*
 
 #Usage
 ```javascript
@@ -30,23 +30,6 @@ See /demo/src/demo.js for examples.
 * **defaultProps**: Additional props for idle component.
 
 ###Component-specific props
-
-####RIENumber
-* **format**: custom formatting function, returns formatted string
-
-####RIETextArea
-* **rows**: rows property on textarea tag while editing
-* **cols**: rows property on textarea tag while editing
-
-####RIESelect
-* **options**: an array of objects containing values and text for [select options](http://www.w3schools.com/tags/tag_option.asp)
-```javascript
-<RIESelect ... options={[
-  {id: "1", text: "one"},
-  {id: "2", text: "two"},
-  {id: "3", text: "three"}
-]} />
-```
 
 # Contributing
 

@@ -1,12 +1,9 @@
-import RIEToggle from './RIEToggle';
-import RIEStatefulBase from './RIEStatefulBase';
-import RIETextArea from './RIETextArea'
-import RIENumber from './RIENumber';
-import RIETags from './RIETags'
-import RIESelect from './RIESelect'
+import RFIEStatefulBase from './RFIEStatefulBase';
+import RFIETextArea from './RFIETextArea';
+import RFIESelect from './RFIESelect';
 
-class RIEInput extends RIEStatefulBase {
+class RFIEInput extends RFIEStatefulBase {
 
 }
 
-export {RIEToggle, RIEInput, RIETextArea, RIENumber, RIETags, RIESelect};
+export { RFIEInput, RFIETextArea, RFIESelect};
