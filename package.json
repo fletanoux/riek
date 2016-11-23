@@ -27,8 +27,7 @@
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",
-    "react-dom": "^0.14.0 || ^15.0.0",
-    "formsy-react-bootstrap": "^1.2.1",
+    "react-dom": "^0.14.0 || ^15.0.0",   
     "react-bootstrap": "^0.30.6"
   },
   "devDependencies": {
@@ -49,5 +48,6 @@
     "webpack": "^1.12.11"
   },
   "dependencies": {
+    "formsy-react-bootstrap": "^1.2.1"
   }
 }
