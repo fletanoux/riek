@@ -81,6 +81,7 @@
 	    var _this = _possibleConstructorReturn(this, (Demo.__proto__ || Object.getPrototypeOf(Demo)).call(this, props));
 
 	    _this.virtualServerCallback = function (newState) {
+	      console.log(newState);
 	      if (_this.state.simulateXHR) {
 	        window.setTimeout(function () {
 	          this.changeState(newState);
@@ -293,7 +294,7 @@
 	              _react2.default.createElement(_index.RFIETextArea, {
 	                value: _this.state.textarea,
 	                handleChange: _this.virtualServerCallback,
-	                name: 'textarea',
+	                name: 'a.b',
 	                className: _this.state.highlight ? "editable" : "",
 	                classLoading: 'loading',
 	                classInvalid: 'invalid' })
@@ -37782,8 +37783,12 @@
 	            _this.setState({ invalid: !bool });
 	        };
 
+	        _this.getValue = function () {
+	            return _this.state.newValue || _this.props.value;
+	        };
+
 	        _this.selectInputText = function (element) {
-	            if (element.setSelectionRange) element.setSelectionRange(0, element.value.length);
+	            if (element.type !== 'time' && element.setSelectionRange) element.setSelectionRange(0, element.value.length);
 	        };
 
 	        _this.elementClick = function (event) {
@@ -37791,16 +37796,22 @@
 	        };
 
 	        _this.componentWillReceiveProps = function (nextProps) {
-	            if ('value' in nextProps) _this.setState({ loading: false, editing: false, invalid: false, newValue: null });
+	            if ('value' in nextProps) _this.setState({ loading: false, editing: false, invalid: false });
 	        };
 
 	        _this.commit = function (value) {
 	            if (!_this.state.invalid) {
-	                var newProp = {};
-	                newProp[_this.props.name] = value;
+	                var names = _this.props.name.split('.');
+	                var nestedObject = {};
+	                var tmp = value;
+	                for (var i = names.length - 1; i >= 0; i--) {
+	                    nestedObject = {};
+	                    nestedObject[names[i]] = tmp;
+	                    tmp = nestedObject;
+	                }
 
 	                _this.setState({ loading: true, newValue: value });
-	                _this.props.handleChange(newProp);
+	                _this.props.handleChange(nestedObject);
 	            }
 	        };
 

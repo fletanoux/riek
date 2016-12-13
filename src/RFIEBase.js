@@ -14,14 +14,18 @@ export default class RFIEBase extends React.Component {
             disabled: false,
             invalid: false
         };
-    }
+    };
 
     setValidationState = (bool) => {
       this.setState({invalid: !bool});
     }
 
+    getValue = () => {
+      return this.state.newValue || this.props.value;
+    };
+
     selectInputText = (element) => {
-        if (element.setSelectionRange) element.setSelectionRange(0, element.value.length);
+        if (element.type !== 'time' && element.setSelectionRange) element.setSelectionRange(0, element.value.length);
     };
 
     elementClick = (event) => {
@@ -29,7 +33,7 @@ export default class RFIEBase extends React.Component {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        if ('value' in nextProps) this.setState({loading: false, editing: false, invalid: false, newValue: null});
+        if ('value' in nextProps) this.setState({loading: false, editing: false, invalid: false});
     };
 
     commit = (value) => {

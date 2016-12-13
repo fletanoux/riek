@@ -1,6 +1,6 @@
 {
   "name": "rfiek",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "React Formsy Inline Edit Kit",
   "author": "Letanoux Florian <letanoux.florian@gmail.com>",
   "license": "MIT",
@@ -27,7 +27,7 @@
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",
-    "react-dom": "^0.14.0 || ^15.0.0",   
+    "react-dom": "^0.14.0 || ^15.0.0",
     "react-bootstrap": "^0.30.6"
   },
   "devDependencies": {
