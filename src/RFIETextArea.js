@@ -9,21 +9,19 @@ export default class RFIETextArea extends RFIEStatefulBase {
 
     renderEditingComponent = () => {
         return <Textarea
-            value={this.props.value}
-            rows={this.props.rows}
-            cols={this.props.cols}
-            disabled={this.state.loading}
-            className={this.makeClassString()}
-            defaultValue={this.props.value}
-            onInput={this.textChanged}
-            onBlur={this.finishEditing}
-            ref={node => (this.input = node)}
-            onKeyDown={this.keyDown}
-            {...this.props} />;
+          value={this.state.value}
+          disabled={this.state.loading}
+          className={this.makeClassString()}
+          defaultValue={this.props.value}
+          onInput={this.textChanged}
+          onBlur={this.finishEditing}
+          ref={node => (this.input = node)}
+          onKeyDown={this.keyDown}
+          {...this.props} />;
     };
 
     renderNormalComponent = () => {
-        const value = this.state.newValue || this.props.value
+        const value = this.state.value;
         const spans_and_brs = []
         let i = 0
         value.split("\n").map(line => {
@@ -34,10 +32,10 @@ export default class RFIETextArea extends RFIEStatefulBase {
         spans_and_brs.pop() // remove last br tag
 
         return <span
-            tabIndex="0"
-            className={this.makeClassString()}
-            onFocus={this.startEditing}
-            onClick={this.startEditing}
-            {...this.props.defaultProps}>{spans_and_brs}</span>;
+          tabIndex="0"
+          className={this.makeClassString()}
+          onFocus={this.startEditing}
+          onClick={this.startEditing}
+          {...this.props.defaultProps}>{spans_and_brs}</span>;
     };
 }

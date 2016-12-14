@@ -5,14 +5,15 @@ export default class RFIEBase extends React.Component {
         super(props);
 
         if (!this.props.name) throw "RTFM: missing 'name' prop";
-        if (!this.props.handleChange) throw "RTFM: missing 'jhandleChange' prop";
-        if (this.props.value == undefined) throw "RTFM: missing 'value' prop";
+        if (!this.props.handleChange) throw "RTFM: missing 'handleChange' prop";
+        if (!this.props.initialValue) throw `RTFM: missing 'initialValue' prop for ${this.props.name}`;
 
         this.state = {
             editing: false,
             loading: false,
             disabled: false,
-            invalid: false
+            invalid: false,
+            value: this.props.initialValue
         };
     };
 
@@ -21,9 +22,14 @@ export default class RFIEBase extends React.Component {
     }
 
     getValue = () => {
-      return this.state.newValue || this.props.value;
+      return this.state.value;
     };
 
+    setValue = (value) => {
+      this.setState(value);
+    }
+
+    // Automatically select the text
     selectInputText = (element) => {
         if (element.type !== 'time' && element.setSelectionRange) element.setSelectionRange(0, element.value.length);
     };
@@ -33,11 +39,13 @@ export default class RFIEBase extends React.Component {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        if ('value' in nextProps) this.setState({loading: false, editing: false, invalid: false});
+        if ('initialValue' in nextProps) this.setState({loading: false, editing: false, invalid: false});
     };
 
     commit = (value) => {
         if(!this.state.invalid) {
+
+            // Convert input name into nested object
             const names = this.props.name.split('.');
             let nestedObject = {};
             let tmp = value;
@@ -47,8 +55,8 @@ export default class RFIEBase extends React.Component {
                 tmp = nestedObject;
             }
 
-            this.setState({loading: true, newValue: value});
-            this.props.handleChange(nestedObject);
+            this.setState({loading: true, value: value}, () => { this.props.handleChange(nestedObject) });
+
         }
     };
 
@@ -63,20 +71,20 @@ export default class RFIEBase extends React.Component {
     };
 
     render = () => {
-        return <span {...this.props.defaultProps} tabindex="0" className={this.makeClassString()} onClick={this.elementClick}>{this.props.value}</span>;
+        return <span {...this.props.defaultProps} tabindex="0" className={this.makeClassString()} onClick={this.elementClick}>{this.state.value}</span>;
     };
 }
 
 RFIEBase.propTypes = {
-    value: React.PropTypes.any.isRequired,
-    handleChange: React.PropTypes.func.isRequired,
-    name: React.PropTypes.string.isRequired,
-    defaultProps: React.PropTypes.object,
-    isDisabled: React.PropTypes.bool,
-    shouldBlockWhileLoading: React.PropTypes.bool,
-    classLoading: React.PropTypes.string,
-    classEditing: React.PropTypes.string,
     classDisabled: React.PropTypes.string,
+    classEditing: React.PropTypes.string,
     classInvalid: React.PropTypes.string,
-    className: React.PropTypes.string
+    classLoading: React.PropTypes.string,
+    className: React.PropTypes.string,
+    defaultProps: React.PropTypes.object,
+    handleChange: React.PropTypes.func.isRequired,
+    initialValue: React.PropTypes.any.isRequired,
+    isDisabled: React.PropTypes.bool,
+    name: React.PropTypes.string.isRequired,
+    shouldBlockWhileLoading: React.PropTypes.bool,
 };

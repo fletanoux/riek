@@ -14,7 +14,7 @@ export default class RFIEStatefulBase extends RFIEBase {
 
     finishEditing = () => {
         this.setValidationState(this.input.isValid());
-        if(!this.state.invalid && this.props.value !== this.input.getValue()) {
+        if(!this.state.invalid && this.state.value !== this.input.getValue()) {
             this.commit(this.input.getValue());
         }
         this.cancelEditing();
@@ -45,24 +45,25 @@ export default class RFIEStatefulBase extends RFIEBase {
 
     renderEditingComponent = () => {
         return <Input
-            name={this.props.name}
-            disabled={this.state.loading}
-            className={this.makeClassString()}
-            defaultValue={this.props.value}
-            onInput={this.textChanged}
-            onBlur={this.finishEditing}
-            ref={node => (this.input = node)}
-            onKeyDown={this.keyDown}
-            {...this.props} />;
-    };
+          className={this.makeClassString()}
+          disabled={this.state.loading}
+          name={this.props.name}
+          onBlur={this.finishEditing}
+          onInput={this.textChanged}
+          onKeyDown={this.keyDown}
+          ref={node => (this.input = node)}
+          type={this.props.type}
+          value={this.state.value}
+               />;
+          };
 
     renderNormalComponent = () => {
         return <span
-            tabIndex="0"
-            className={this.makeClassString()}
-            onFocus={this.startEditing}
-            onClick={this.startEditing}
-            {...this.props.defaultProps}>{this.state.newValue || this.props.value}</span>;
+          tabIndex="0"
+          className={this.makeClassString()}
+          onFocus={this.startEditing}
+          onClick={this.startEditing}
+          {...this.props.defaultProps}>{this.state.value}</span>;
     };
 
     elementBlur = (event) => {
