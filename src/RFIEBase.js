@@ -59,10 +59,11 @@ export default class RFIEBase extends React.Component {
         }
     };
 
-    makeClassString = () => {
+    makeClassString = (additionalClass = null) => {
         var classNames = [];
         if (!this.state.value) classNames.push(this.props.classPlaceholder);
         if (!this.state.editing && !this.state.disabled) classNames.push(this.props.classEditable);
+        if(additionalClass) classNames.push(additionalClass);
         if (this.props.className) classNames.push(this.props.className);
         if (this.state.disabled && this.props.classDisabled) classNames.push(this.props.classDisabled);
         if (this.state.editing && this.props.classEditing) classNames.push(this.props.classEditing);
