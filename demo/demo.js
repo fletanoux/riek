@@ -53700,7 +53700,7 @@
 	            var additionalClass = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
 	            var classNames = [];
-	            if (!_this.state.value) classNames.push(_this.props.classPlaceholder);
+	            if (!_this.state.value && !_this.state.editing) classNames.push(_this.props.classPlaceholder);
 	            if (!_this.state.editing && !_this.state.disabled) classNames.push(_this.props.classEditable);
 	            if (additionalClass) classNames.push(additionalClass);
 	            if (_this.props.className) classNames.push(_this.props.className);
