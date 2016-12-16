@@ -78,7 +78,3 @@ export default class RFIELink extends RFIEStatefulBase {
           text: React.PropTypes.string,
           type: React.PropTypes.string,
         };
-
-        RFIELink.defaultProps = {
-
-        }
