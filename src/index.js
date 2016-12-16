@@ -1,10 +1,11 @@
+import RFIEDatePicker from './RFIEDatePicker';
+import RFIELink from './RFIELink';
+import RFIESelect from './RFIESelect';
 import RFIEStatefulBase from './RFIEStatefulBase';
 import RFIETextArea from './RFIETextArea';
-import RFIESelect from './RFIESelect';
-import RFIEDatePicker from './RFIEDatePicker'
 
 class RFIEInput extends RFIEStatefulBase {
 
 }
 
-export { RFIEInput, RFIETextArea, RFIESelect, RFIEDatePicker};
+export { RFIEInput, RFIETextArea, RFIESelect, RFIEDatePicker, RFIELink};
