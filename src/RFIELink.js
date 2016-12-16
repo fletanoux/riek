@@ -13,7 +13,7 @@ export default class RFIELink extends RFIEStatefulBase {
         onKeyDown={this.keyDown}
         ref={node => (this.input = node)}
         type={this.props.type}
-        validation={this.props.email ? 'isEmail' : 'isUrl'}
+        validations={this.props.email ? 'isEmail' : 'isUrl'}
         value={this.state.value}
         {...this.props}
       />);
