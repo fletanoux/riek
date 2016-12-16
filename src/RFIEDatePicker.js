@@ -82,3 +82,7 @@ export default class RFIEDatePicker extends RFIEStatefulBase {
   }
 
 }
+
+RFIEDatePicker.propTypes = {
+  dateFormat: React.PropTypes.string,
+};
