@@ -53820,7 +53820,7 @@
 	          return _this.input = node;
 	        },
 	        type: _this.props.type,
-	        validation: _this.props.email ? 'isEmail' : 'isUrl',
+	        validations: _this.props.email ? 'isEmail' : 'isUrl',
 	        value: _this.state.value
 	      }, _this.props));
 	    }, _this.renderNormalComponent = function () {
