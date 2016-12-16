@@ -53884,8 +53884,6 @@
 	  type: _react2.default.PropTypes.string
 	};
 
-	RFIELink.defaultProps = {};
-
 /***/ },
 /* 574 */
 /***/ function(module, exports, __webpack_require__) {
