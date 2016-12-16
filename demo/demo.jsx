@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Highlight from 'react-highlight';
-import {RFIEInput, RFIEToggle, RFIETextArea, RFIETags, RFIESelect, RFIEDatePicker} from '../src/index.js';
+import {RFIEInput, RFIELink, RFIETextArea, RFIETags, RFIESelect, RFIEDatePicker} from '../src/index.js';
 import {FormsyBootstrap} from 'formsy-react-bootstrap';
 
 class Demo extends React.Component {
@@ -83,6 +83,45 @@ class Demo extends React.Component {
               placeholder="placeholder textarea"
             />
           </div>
+          <hr />
+          <h3>Link</h3>
+          <div>
+            <p>Default : </p>
+            <RFIELink
+              handleChange={this.virtualServerCallback}
+              initialValue="http://mudita-music.com"
+              name="a.b"
+              placeholder="placeholder link"
+              iconClassName="icon icon-pen"
+            />
+            <p>Email : </p>
+            <RFIELink
+              handleChange={this.virtualServerCallback}
+              initialValue="letanoux.florian@gmail.com"
+              email={true}
+              name="a.b"
+              placeholder="placeholder email"
+              iconClassName="icon icon-pen"
+            />
+            <p>Replaced with text : </p>
+            <RFIELink
+              handleChange={this.virtualServerCallback}
+              initialValue="http://mudita-music.com"
+              text="This text replace the url"
+              name="a.b"
+              placeholder="placeholder link"
+              iconClassName="icon icon-pen"
+            />
+            <p>Placeholder : </p>
+            <RFIELink
+              handleChange={this.virtualServerCallback}
+              // initialValue={this.state.textarea}
+              name="a.b"
+              placeholder="placeholder link"
+              iconClassName="icon icon-pen"
+            />
+          </div>
+
           <hr />
           <h3>Number</h3>
           <div>

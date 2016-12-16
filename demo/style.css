@@ -37,51 +37,12 @@ input, textarea {
     cursor: wait;
 }
 
-.tags.loading > div {
-    background-color: grey;
-    color: white;
+.icon {
+  height: 16px;
+  width: 16px;
+  display: inline-block;
 }
 
-.editable-pill {
-    background-color: black;
-    color: white;
-    border-radius: 5px;
-    padding: 0 5px 0 5px;
-    cursor: pointer;
-}
-
-.fifty {
-    width: 50%;
-    display: inline-block;
-    vertical-align: top;
-}
-
-.menu {
-    border-bottom: 1px black solid;
-}
-
-.tags, .tags div {
-    display: inline-block;
-}
-
-.tags > div {
-    padding-left: 5px;
-    margin: 0 3px 0 0;
-    border-radius: 5px;
-    background-color: black;
-    color: white;
-}
-
-.tags > div > div {
-    padding: 0 3px 0 0;
-}
-
-.tags input {
-    background-color: transparent;
-}
-
-.remove {
-    padding-right: 2px;
-    margin-left: 8px;
-    cursor: pointer;
+.icon-pen {
+  background-image: url('pen-blue.svg');
 }
