@@ -5,12 +5,11 @@ export default class RFIEBase extends React.Component {
         super(props);
 
         if (!this.props.name) throw "RTFM: missing 'name' prop";
-        if (!this.props.handleChange) throw "RTFM: missing 'handleChange' prop";
-        if (!this.props.initialValue) throw `RTFM: missing 'initialValue' prop for ${this.props.name}`;
+        if (!this.props.handleChange) throw `${this.props.name} Require an handlChange callback to works`;
+        if (!this.props.placeholder) throw `${this.props.name} Require a placeholder to works`;
 
         this.state = {
             editing: false,
-            loading: false,
             disabled: false,
             invalid: false,
             value: this.props.initialValue
@@ -35,11 +34,11 @@ export default class RFIEBase extends React.Component {
     };
 
     elementClick = (event) => {
-        throw "RIEBase must be subclassed first: use a concrete class like RIEInput, RIEToggle, RIEDate et.c";
+        throw "RIEBase must be subclassed first: use a concrete class like RIEInput, RIEToggle, RIEDatePicker et.c";
     };
 
     componentWillReceiveProps = (nextProps) => {
-        if ('initialValue' in nextProps) this.setState({loading: false, editing: false, invalid: false});
+        if ('initialValue' in nextProps) this.setState({ editing: false, invalid: false});
     };
 
     commit = (value) => {
@@ -55,36 +54,53 @@ export default class RFIEBase extends React.Component {
                 tmp = nestedObject;
             }
 
-            this.setState({loading: true, value: value}, () => { this.props.handleChange(nestedObject) });
+            this.setState({ value: value}, () => { this.props.handleChange(nestedObject) });
 
         }
     };
 
     makeClassString = () => {
         var classNames = [];
+        if (!this.state.value) classNames.push(this.props.classPlaceholder);
+        if (!this.state.editing && !this.state.disabled) classNames.push(this.props.classEditable);
         if (this.props.className) classNames.push(this.props.className);
-        if (this.state.editing && this.props.classEditing) classNames.push(this.props.classEditing);
-        if (this.state.loading && this.props.classLoading) classNames.push(this.props.classLoading);
         if (this.state.disabled && this.props.classDisabled) classNames.push(this.props.classDisabled);
+        if (this.state.editing && this.props.classEditing) classNames.push(this.props.classEditing);
         if (this.state.invalid && this.props.classInvalid) classNames.push(this.props.classInvalid);
         return classNames.join(' ');
     };
 
     render = () => {
-        return <span {...this.props.defaultProps} tabindex="0" className={this.makeClassString()} onClick={this.elementClick}>{this.state.value}</span>;
+        return (
+          <span
+            {...this.props.defaultProps}
+            tabindex="0"
+            className={this.makeClassString()}
+            onClick={this.elementClick}
+          >
+            {this.state.value || this.props.placeholder}
+          </span>
+        );
     };
 }
 
 RFIEBase.propTypes = {
     classDisabled: React.PropTypes.string,
+    classEditable: React.PropTypes.string,
     classEditing: React.PropTypes.string,
     classInvalid: React.PropTypes.string,
-    classLoading: React.PropTypes.string,
     className: React.PropTypes.string,
-    defaultProps: React.PropTypes.object,
+    classPlaceholder: React.PropTypes.string,
     handleChange: React.PropTypes.func.isRequired,
-    initialValue: React.PropTypes.any.isRequired,
+    initialValue: React.PropTypes.any,
     isDisabled: React.PropTypes.bool,
     name: React.PropTypes.string.isRequired,
-    shouldBlockWhileLoading: React.PropTypes.bool,
+    placeholder: React.PropTypes.any.isRequired,
 };
+
+RFIEBase.defaultProps = {
+  classDisabled: 'rfie-disabled',
+  classEditable: 'rfie-editable',
+  classEditing: 'rfie-editing',
+  classPlaceholder: 'rfie-placeholder',
+}

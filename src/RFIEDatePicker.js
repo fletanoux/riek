@@ -9,10 +9,19 @@ export default class RFIEDatePicker extends RFIEStatefulBase {
   constructor(props) {
     super(props);
 
-    console.log(this.props.dateFormat || "DD/MM/YYYY");
-    if(typeof this.props.initialValue !== 'string' && typeof this.props.initialValue !== new moment() && typeof this.props.initialValue !== new Date()) throw `RTFM: initialValue for ${this.props.name} must be a string, a moment object, or a date object`;
+    if(this.props.initialValue
+      && (
+        typeof this.props.initialValue !== 'string'
+        && !(this.props.initialValue instanceof moment)
+        && !(this.props.initialValue instanceof Date)
+        )
+      ) throw `RTFM: initialValue for ${this.props.name} must be a string, a moment object, or a date object`;
 
-    if(typeof this.props.initialValue === new moment()) {
+    if(!this.props.initialValue) {
+      this.state = {
+        value: null,
+      };
+    } else if(typeof this.props.initialValue === new moment()) {
       this.state = {
         value: this.props.initialValue,
       };
@@ -24,7 +33,7 @@ export default class RFIEDatePicker extends RFIEStatefulBase {
   }
 
   getValue = () => {
-    return this.state.value.format(this.props.dateFormat || "DD/MM/YYYY");
+    return this.state.value && this.state.value.format(this.props.dateFormat || "DD/MM/YYYY");
   }
 
   getMomentObject = () => {
@@ -32,9 +41,10 @@ export default class RFIEDatePicker extends RFIEStatefulBase {
   }
 
   handleChange = (date) => {
-    this.setState({ value: date });
+    this.setState({ value: date }, () => {
+      this.props.handleChange(date.format(this.props.dateFormat || "DD/MM/YYYY"));
+    });
 
-    this.props.handleChange(date.format(this.props.dateFormat || "DD/MM/YYYY"));
     this.cancelEditing();
   }
   componentDidUpdate = () => {
@@ -45,7 +55,7 @@ export default class RFIEDatePicker extends RFIEStatefulBase {
     return (
       <DatePicker
         autoFocus={true}
-        selected={this.state.value}
+        selected={this.state.value || moment()}
         onChange={this.handleChange}
         dateFormat={this.props.dateFormat || "DD/MM/YYYY"}
         ref={node => (this.input = node)}
@@ -61,7 +71,12 @@ export default class RFIEDatePicker extends RFIEStatefulBase {
         className={this.makeClassString()}
         onFocus={this.startEditing}
         onClick={this.startEditing}
-        {...this.props.defaultProps}>{this.state.value.format(this.props.dateFormat || "DD/MM/YYYY")}</span>
+        {...this.props.defaultProps}>
+        {(this.state.value
+          && this.state.value.format(this.props.dateFormat || "DD/MM/YYYY"))
+          || this.props.placeholder
+        }
+      </span>
     );
   }
 

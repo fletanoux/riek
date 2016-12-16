@@ -8,20 +8,22 @@ export default class RFIETextArea extends RFIEStatefulBase {
     };
 
     renderEditingComponent = () => {
-        return <Textarea
-          value={this.state.value}
-          disabled={this.state.loading}
-          className={this.makeClassString()}
-          defaultValue={this.props.value}
-          onInput={this.textChanged}
-          onBlur={this.finishEditing}
-          ref={node => (this.input = node)}
-          onKeyDown={this.keyDown}
-          {...this.props} />;
+        return (
+          <Textarea
+            className={this.makeClassString()}
+            defaultValue={this.props.value}
+            onBlur={this.finishEditing}
+            onInput={this.textChanged}
+            onKeyDown={this.keyDown}
+            ref={node => (this.input = node)}
+            value={this.state.value}
+            {...this.props}
+          />
+        );
     };
 
     renderNormalComponent = () => {
-        const value = this.state.value;
+        const value = this.state.value || this.props.placeholder;
         const spans_and_brs = []
         let i = 0
         value.split("\n").map(line => {
@@ -36,6 +38,8 @@ export default class RFIETextArea extends RFIEStatefulBase {
           className={this.makeClassString()}
           onFocus={this.startEditing}
           onClick={this.startEditing}
-          {...this.props.defaultProps}>{spans_and_brs}</span>;
+          {...this.props.defaultProps}>
+          {spans_and_brs || this.props.placeholder}
+        </span>;
     };
 }

@@ -33,13 +33,6 @@ class Demo extends React.Component {
 
   virtualServerCallback = (newState) => {
     console.log(newState);
-    if (this.state.simulateXHR) {
-      window.setTimeout(function() {
-        this.changeState(newState);
-      }.bind(this), this.state.XHRDelay);
-    } else {
-      this.changeState(newState);
-    }
   };
 
   test = () => {
@@ -52,141 +45,97 @@ class Demo extends React.Component {
     console.log(this.date.getMomentObject());
   }
 
-  changeState = (newState) => {
-    this.setState(newState);
-  };
-
-  isStringAcceptable = (string) => {
-    return (string.length >= 1);  // Minimum 4 letters long
-  };
-
-  isStringEvenNumber = (string) => {
-    var number = parseInt(string);
-    if (isNaN(number) || !isFinite(number)) return false;
-    return number % 2 == 0;
-  };
-
-  isValidXHRDelay = (text) => {
-    let number = parseInt(text);
-    if (isNaN(number)) return false;
-    return (0 < number) && (number < 50000);
-  };
-
-  formatInteger = (number) => {
-    return number.toString() + " feet";
-  };
-
-  formatMillisecondsAppend = (text) => {
-    return text + " ms";
-  };
-
   handleSelect = (newState) => {
     console.log('handleSelect', newState);
     this.setState(newState);
   }
 
   render = () => {
-    let xhrDelaySwitch = (this.state.simulateXHR) ? <li>XHR delay: <RFIEInput type="number" initialValue={this.state.XHRDelay} handleChange={this.changeState} validate={this.isValidXHRDelay} name="XHRDelay" className="editable-pill" format={this.formatMillisecondsAppend} /></li> : null;
     return <div>
       <FormsyBootstrap>
-        <div className="menu">
-          <div className="fifty">
-            <h3>Application State</h3>
-            <ul>
-              <li><i>boolean:</i> {this.state.boolean.toString()}</li>
-              <li><i>text:</i> {this.state.text}</li>
-              <li><i>textarea:</i> {this.state.textarea.replace(new RegExp("\n", "g"), "\\n")}</li>
-              <li><i>number:</i> {this.state.number}</li>
-              <li><i>tags:</i> {[...this.state.tags].join(', ')}</li>
-              <li><i>select:</i> {JSON.stringify(this.state.select)}</li>
-            </ul>
-          </div>
-          <div className="fifty">
-            <h3>Options</h3>
-          </div>
-        </div>
         <div className="content">
-          <h3>Toggle</h3>
-          <div>
-            <span>Default: </span>
-
-            <br />
-            <span>Custom labels: </span>
-
-          </div>
-          <hr />
           <h3>Input</h3>
           <div>
             <span>Default: </span>
             <RFIEInput
-              help="Test de message d'ehelp"
-              validations="isEmail"
-              validationError="Must be a valid email"
-              initialValue={this.state.text}
-              handleChange={this.virtualServerCallback}
-              name="text"
-              className={this.state.highlight ? "editable" : ""}
+              classInvalid="invalid"
               classLoading="loading"
-              classInvalid="invalid" />
+              className="test"
+              handleChange={this.virtualServerCallback}
+              help="Test de message d'ehelp"
+              // initialValue={this.state.text}
+              name="text"
+              placeholder="placeholder input"
+              validationError="Must be a valid email"
+              validations="isEmail"
+            />
           </div>
           <hr />
           <h3>Textarea</h3>
           <div>
             <p>Default: </p>
             <RFIETextArea
-              initialValue={this.state.textarea}
-              handleChange={this.virtualServerCallback}
-              name="a.b"
-              className={this.state.highlight ? "editable" : ""}
+              classInvalid="invalid"
               classLoading="loading"
-              classInvalid="invalid" />
+              handleChange={this.virtualServerCallback}
+              // initialValue={this.state.textarea}
+              name="a.b"
+              placeholder="placeholder textarea"
+            />
           </div>
           <hr />
           <h3>Number</h3>
           <div>
             <span>Default: </span>
             <RFIEInput
-              initialValue={this.state.number}
-              handleChange={this.virtualServerCallback}
-              name="number"
-              className={this.state.highlight ? "editable" : ""}
+              classInvalid="invalid"
               classLoading="loading"
-              classInvalid="invalid"/>
+              className={this.state.highlight ? "editable" : ""}
+              handleChange={this.virtualServerCallback}
+              // initialValue={this.state.number}
+              name="number"
+              placeholder="placeholder number"
+            />
             <br />
             <span>Only even, custom formatter: </span>
             <RFIEInput
-              initialValue={this.state.number}
-              handleChange={this.virtualServerCallback}
-              name="number"
-              type="number"
+              classInvalid="invalid"
               classLoading="loading"
               className={this.state.highlight ? "editable" : ""}
-              classInvalid="invalid"/>
+              handleChange={this.virtualServerCallback}
+              // initialValue={this.state.number}
+              name="number"
+              placeholder="placeholder number"
+              type="number"
+            />
           </div>
           <hr />
           <h3>Time</h3>
           <div>
             <span>Default: </span>
             <RFIEInput
-              initialValue={this.state.time}
-              handleChange={this.test}
-              ref={node => (this.time = node)}
-              name="time"
-              type="time"
+              classInvalid="invalid"
               classLoading="loading"
               className={this.state.highlight ? "editable" : ""}
-              classInvalid="invalid"/>
+              handleChange={this.test}
+              initialValue={undefined}
+              name="time"
+              placeholder="placeholder time"
+              ref={node => (this.time = node)}
+              type="time"
+            />
           </div>
           <hr />
           <h3>Date</h3>
           <div>
             <span>Default: </span>
             <RFIEDatePicker
-              initialValue={this.state.date}
-              handleChange={this.dateChange}
               dateFormat="DD-MM-YYYY"
-              ref={node => (this.date = node)}
+              handleChange={this.dateChange}
+              //initialValue={this.state.date}
               name="date"
+              placeholder="placeholder datepicker"
+              ref={node => (this.date = node)}
             />
           </div>
           <hr />
@@ -194,17 +143,19 @@ class Demo extends React.Component {
           <div>
             <span>Default: </span>
             <RFIESelect
-              initialValue={this.state.select}
+              //initialValue={undefined}
               className={this.state.highlight ? "editable" : ""}
               options={this.state.selectOptions}
               handleChange={this.virtualServerCallback}
               classLoading="loading"
-              name="select" />
+              name="select"
+              placeholder="placeholder select"
+            />
           </div>
         </div>
       </FormsyBootstrap>
     </div>;
-            };
-          }
+  };
+}
 
-          ReactDOM.render(<Demo />, document.getElementById('app'));
+ReactDOM.render(<Demo />, document.getElementById('app'));

@@ -22,7 +22,7 @@ export default class RFIESelect extends RFIEStatefulBase {
   };
 
   getCurrentSelectedLabel = () => {
-    let label;
+    let label = null;
     this.props.options.forEach((option) => {
       if(this.state.value === option.value)
       label = option.label;
@@ -32,17 +32,19 @@ export default class RFIESelect extends RFIEStatefulBase {
   }
 
   renderEditingComponent = () => {
-    return <Select
-      value={this.props.initialValue}
-      disabled={(this.props.shouldBlockWhileLoading && this.state.loading)}
-      className={this.makeClassString()}
-      onChange={this.finishEditing}
-      onBlur={this.cancelEditing}
-      onKeyDown={this.keyDown}
-      options={this.props.options}
-      name={this.props.name}
-      ref={node => (this.input = node)}
-           />
+    return (
+      <Select
+        className={this.makeClassString()}
+        name={this.props.name}
+        onBlur={this.cancelEditing}
+        onChange={this.finishEditing}
+        onKeyDown={this.keyDown}
+        options={this.props.options}
+        ref={node => (this.input = node)}
+        value={this.props.initialValue}
+        {...this.props}
+      />
+    );
   };
 
   renderNormalComponent = () => {
@@ -52,7 +54,7 @@ export default class RFIESelect extends RFIEStatefulBase {
       onFocus={this.startEditing}
       onClick={this.startEditing}
       {...this.props.defaultProps}>
-      {this.getCurrentSelectedLabel()}
+      {this.getCurrentSelectedLabel() || this.props.placeholder}
     </span>;
   };
 }

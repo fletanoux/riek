@@ -64,8 +64,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -82,13 +80,6 @@
 
 	    _this.virtualServerCallback = function (newState) {
 	      console.log(newState);
-	      if (_this.state.simulateXHR) {
-	        window.setTimeout(function () {
-	          this.changeState(newState);
-	        }.bind(_this), _this.state.XHRDelay);
-	      } else {
-	        _this.changeState(newState);
-	      }
 	    };
 
 	    _this.test = function () {
@@ -101,46 +92,12 @@
 	      console.log(_this.date.getMomentObject());
 	    };
 
-	    _this.changeState = function (newState) {
-	      _this.setState(newState);
-	    };
-
-	    _this.isStringAcceptable = function (string) {
-	      return string.length >= 1; // Minimum 4 letters long
-	    };
-
-	    _this.isStringEvenNumber = function (string) {
-	      var number = parseInt(string);
-	      if (isNaN(number) || !isFinite(number)) return false;
-	      return number % 2 == 0;
-	    };
-
-	    _this.isValidXHRDelay = function (text) {
-	      var number = parseInt(text);
-	      if (isNaN(number)) return false;
-	      return 0 < number && number < 50000;
-	    };
-
-	    _this.formatInteger = function (number) {
-	      return number.toString() + " feet";
-	    };
-
-	    _this.formatMillisecondsAppend = function (text) {
-	      return text + " ms";
-	    };
-
 	    _this.handleSelect = function (newState) {
 	      console.log('handleSelect', newState);
 	      _this.setState(newState);
 	    };
 
 	    _this.render = function () {
-	      var xhrDelaySwitch = _this.state.simulateXHR ? _react2.default.createElement(
-	        'li',
-	        null,
-	        'XHR delay: ',
-	        _react2.default.createElement(_index.RFIEInput, { type: 'number', initialValue: _this.state.XHRDelay, handleChange: _this.changeState, validate: _this.isValidXHRDelay, name: 'XHRDelay', className: 'editable-pill', format: _this.formatMillisecondsAppend })
-	      ) : null;
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -149,120 +106,7 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'menu' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'fifty' },
-	              _react2.default.createElement(
-	                'h3',
-	                null,
-	                'Application State'
-	              ),
-	              _react2.default.createElement(
-	                'ul',
-	                null,
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'i',
-	                    null,
-	                    'boolean:'
-	                  ),
-	                  ' ',
-	                  _this.state.boolean.toString()
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'i',
-	                    null,
-	                    'text:'
-	                  ),
-	                  ' ',
-	                  _this.state.text
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'i',
-	                    null,
-	                    'textarea:'
-	                  ),
-	                  ' ',
-	                  _this.state.textarea.replace(new RegExp("\n", "g"), "\\n")
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'i',
-	                    null,
-	                    'number:'
-	                  ),
-	                  ' ',
-	                  _this.state.number
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'i',
-	                    null,
-	                    'tags:'
-	                  ),
-	                  ' ',
-	                  [].concat(_toConsumableArray(_this.state.tags)).join(', ')
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'i',
-	                    null,
-	                    'select:'
-	                  ),
-	                  ' ',
-	                  JSON.stringify(_this.state.select)
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'fifty' },
-	              _react2.default.createElement(
-	                'h3',
-	                null,
-	                'Options'
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
 	            { className: 'content' },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Toggle'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                'Default: '
-	              ),
-	              _react2.default.createElement('br', null),
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                'Custom labels: '
-	              )
-	            ),
-	            _react2.default.createElement('hr', null),
 	            _react2.default.createElement(
 	              'h3',
 	              null,
@@ -277,15 +121,17 @@
 	                'Default: '
 	              ),
 	              _react2.default.createElement(_index.RFIEInput, {
-	                help: 'Test de message d\'ehelp',
-	                validations: 'isEmail',
-	                validationError: 'Must be a valid email',
-	                initialValue: _this.state.text,
-	                handleChange: _this.virtualServerCallback,
-	                name: 'text',
-	                className: _this.state.highlight ? "editable" : "",
+	                classInvalid: 'invalid',
 	                classLoading: 'loading',
-	                classInvalid: 'invalid' })
+	                className: 'test',
+	                handleChange: _this.virtualServerCallback,
+	                help: 'Test de message d\'ehelp'
+	                // initialValue={this.state.text}
+	                , name: 'text',
+	                placeholder: 'placeholder input',
+	                validationError: 'Must be a valid email',
+	                validations: 'isEmail'
+	              })
 	            ),
 	            _react2.default.createElement('hr', null),
 	            _react2.default.createElement(
@@ -302,12 +148,13 @@
 	                'Default: '
 	              ),
 	              _react2.default.createElement(_index.RFIETextArea, {
-	                initialValue: _this.state.textarea,
-	                handleChange: _this.virtualServerCallback,
-	                name: 'a.b',
-	                className: _this.state.highlight ? "editable" : "",
+	                classInvalid: 'invalid',
 	                classLoading: 'loading',
-	                classInvalid: 'invalid' })
+	                handleChange: _this.virtualServerCallback
+	                // initialValue={this.state.textarea}
+	                , name: 'a.b',
+	                placeholder: 'placeholder textarea'
+	              })
 	            ),
 	            _react2.default.createElement('hr', null),
 	            _react2.default.createElement(
@@ -324,12 +171,14 @@
 	                'Default: '
 	              ),
 	              _react2.default.createElement(_index.RFIEInput, {
-	                initialValue: _this.state.number,
-	                handleChange: _this.virtualServerCallback,
-	                name: 'number',
-	                className: _this.state.highlight ? "editable" : "",
+	                classInvalid: 'invalid',
 	                classLoading: 'loading',
-	                classInvalid: 'invalid' }),
+	                className: _this.state.highlight ? "editable" : "",
+	                handleChange: _this.virtualServerCallback
+	                // initialValue={this.state.number}
+	                , name: 'number',
+	                placeholder: 'placeholder number'
+	              }),
 	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'span',
@@ -337,13 +186,15 @@
 	                'Only even, custom formatter: '
 	              ),
 	              _react2.default.createElement(_index.RFIEInput, {
-	                initialValue: _this.state.number,
-	                handleChange: _this.virtualServerCallback,
-	                name: 'number',
-	                type: 'number',
+	                classInvalid: 'invalid',
 	                classLoading: 'loading',
 	                className: _this.state.highlight ? "editable" : "",
-	                classInvalid: 'invalid' })
+	                handleChange: _this.virtualServerCallback
+	                // initialValue={this.state.number}
+	                , name: 'number',
+	                placeholder: 'placeholder number',
+	                type: 'number'
+	              })
 	            ),
 	            _react2.default.createElement('hr', null),
 	            _react2.default.createElement(
@@ -360,16 +211,18 @@
 	                'Default: '
 	              ),
 	              _react2.default.createElement(_index.RFIEInput, {
-	                initialValue: _this.state.time,
+	                classInvalid: 'invalid',
+	                classLoading: 'loading',
+	                className: _this.state.highlight ? "editable" : "",
 	                handleChange: _this.test,
+	                initialValue: undefined,
+	                name: 'time',
+	                placeholder: 'placeholder time',
 	                ref: function ref(node) {
 	                  return _this.time = node;
 	                },
-	                name: 'time',
-	                type: 'time',
-	                classLoading: 'loading',
-	                className: _this.state.highlight ? "editable" : "",
-	                classInvalid: 'invalid' })
+	                type: 'time'
+	              })
 	            ),
 	            _react2.default.createElement('hr', null),
 	            _react2.default.createElement(
@@ -386,13 +239,14 @@
 	                'Default: '
 	              ),
 	              _react2.default.createElement(_index.RFIEDatePicker, {
-	                initialValue: _this.state.date,
-	                handleChange: _this.dateChange,
 	                dateFormat: 'DD-MM-YYYY',
+	                handleChange: _this.dateChange
+	                //initialValue={this.state.date}
+	                , name: 'date',
+	                placeholder: 'placeholder datepicker',
 	                ref: function ref(node) {
 	                  return _this.date = node;
-	                },
-	                name: 'date'
+	                }
 	              })
 	            ),
 	            _react2.default.createElement('hr', null),
@@ -409,13 +263,15 @@
 	                null,
 	                'Default: '
 	              ),
-	              _react2.default.createElement(_index.RFIESelect, {
-	                initialValue: _this.state.select,
-	                className: _this.state.highlight ? "editable" : "",
+	              _react2.default.createElement(_index.RFIESelect
+	              //initialValue={undefined}
+	              , { className: _this.state.highlight ? "editable" : "",
 	                options: _this.state.selectOptions,
 	                handleChange: _this.virtualServerCallback,
 	                classLoading: 'loading',
-	                name: 'select' })
+	                name: 'select',
+	                placeholder: 'placeholder select'
+	              })
 	            )
 	          )
 	        )
@@ -17026,7 +16882,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -17054,102 +16910,101 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var RFIEStatefulBase = function (_RFIEBase) {
-	    _inherits(RFIEStatefulBase, _RFIEBase);
+	  _inherits(RFIEStatefulBase, _RFIEBase);
 
-	    function RFIEStatefulBase(props) {
-	        _classCallCheck(this, RFIEStatefulBase);
+	  function RFIEStatefulBase(props) {
+	    _classCallCheck(this, RFIEStatefulBase);
 
-	        var _this = _possibleConstructorReturn(this, (RFIEStatefulBase.__proto__ || Object.getPrototypeOf(RFIEStatefulBase)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (RFIEStatefulBase.__proto__ || Object.getPrototypeOf(RFIEStatefulBase)).call(this, props));
 
-	        _this.startEditing = function () {
-	            _this.setState({ editing: true });
-	        };
+	    _this.startEditing = function () {
+	      _this.setState({ editing: true });
+	    };
 
-	        _this.finishEditing = function () {
-	            _this.setValidationState(_this.input.isValid());
-	            if (!_this.state.invalid && _this.state.value !== _this.input.getValue()) {
-	                _this.commit(_this.input.getValue());
-	            }
-	            _this.cancelEditing();
-	        };
+	    _this.finishEditing = function () {
+	      _this.setValidationState(_this.input.isValid());
+	      if (!_this.state.invalid && _this.state.value !== _this.input.getValue()) {
+	        _this.commit(_this.input.getValue());
+	      }
+	      _this.cancelEditing();
+	    };
 
-	        _this.cancelEditing = function () {
-	            _this.setState({ editing: false, invalid: false });
-	        };
+	    _this.cancelEditing = function () {
+	      _this.setState({ editing: false, invalid: false });
+	    };
 
-	        _this.keyDown = function (event) {
-	            if (event.keyCode === 13) {
-	                _this.finishEditing();
-	            } // Enter
-	            else if (event.keyCode === 27) {
-	                    _this.cancelEditing();
-	                } // Escape
-	        };
+	    _this.keyDown = function (event) {
+	      if (event.keyCode === 13) {
+	        _this.finishEditing();
+	      } // Enter
+	      else if (event.keyCode === 27) {
+	          _this.cancelEditing();
+	        } // Escape
+	    };
 
-	        _this.textChanged = function (event) {
-	            _this.setValidationState(_this.input.isValid());
-	        };
+	    _this.textChanged = function (event) {
+	      _this.setValidationState(_this.input.isValid());
+	    };
 
-	        _this.componentDidUpdate = function (prevProps, prevState) {
-	            var inputElem = _reactDom2.default.findDOMNode(_this.input);
-	            if (_this.state.editing && !prevState.editing) {
-	                inputElem.focus();
-	                _this.selectInputText(inputElem);
-	            } else if (_this.state.editing && prevProps.text != _this.props.text) {
-	                _this.finishEditing();
-	            }
-	        };
+	    _this.componentDidUpdate = function (prevProps, prevState) {
+	      var inputElem = _reactDom2.default.findDOMNode(_this.input);
+	      if (_this.state.editing && !prevState.editing) {
+	        inputElem.focus();
+	        _this.selectInputText(inputElem);
+	      } else if (_this.state.editing && prevProps.text != _this.props.text) {
+	        _this.finishEditing();
+	      }
+	    };
 
-	        _this.renderEditingComponent = function () {
-	            return _react2.default.createElement(_formsyReactBootstrap.Input, {
-	                className: _this.makeClassString(),
-	                disabled: _this.state.loading,
-	                name: _this.props.name,
-	                onBlur: _this.finishEditing,
-	                onInput: _this.textChanged,
-	                onKeyDown: _this.keyDown,
-	                ref: function ref(node) {
-	                    return _this.input = node;
-	                },
-	                type: _this.props.type,
-	                value: _this.state.value
-	            });
-	        };
+	    _this.renderEditingComponent = function () {
+	      return _react2.default.createElement(_formsyReactBootstrap.Input, _extends({
+	        className: _this.makeClassString(),
+	        name: _this.props.name,
+	        onBlur: _this.finishEditing,
+	        onInput: _this.textChanged,
+	        onKeyDown: _this.keyDown,
+	        ref: function ref(node) {
+	          return _this.input = node;
+	        },
+	        type: _this.props.type,
+	        value: _this.state.value
+	      }, _this.props));
+	    };
 
-	        _this.renderNormalComponent = function () {
-	            return _react2.default.createElement(
-	                'span',
-	                _extends({
-	                    tabIndex: '0',
-	                    className: _this.makeClassString(),
-	                    onFocus: _this.startEditing,
-	                    onClick: _this.startEditing
-	                }, _this.props.defaultProps),
-	                _this.state.value
-	            );
-	        };
+	    _this.renderNormalComponent = function () {
+	      return _react2.default.createElement(
+	        'span',
+	        _extends({
+	          tabIndex: '0',
+	          className: _this.makeClassString(),
+	          onFocus: _this.startEditing,
+	          onClick: _this.startEditing
+	        }, _this.props.defaultProps),
+	        _this.state.value || _this.props.placeholder
+	      );
+	    };
 
-	        _this.elementBlur = function (event) {
-	            _this.finishEditing();
-	        };
+	    _this.elementBlur = function (event) {
+	      _this.finishEditing();
+	    };
 
-	        _this.elementClick = function (event) {
-	            _this.startEditing();
-	            event.target.element.focus();
-	        };
+	    _this.elementClick = function (event) {
+	      _this.startEditing();
+	      event.target.element.focus();
+	    };
 
-	        _this.render = function () {
-	            if (_this.state.editing) {
-	                return _this.renderEditingComponent();
-	            } else {
-	                return _this.renderNormalComponent();
-	            }
-	        };
+	    _this.render = function () {
+	      if (_this.state.editing) {
+	        return _this.renderEditingComponent();
+	      } else {
+	        return _this.renderNormalComponent();
+	      }
+	    };
 
-	        return _this;
-	    }
+	    return _this;
+	  }
 
-	    return RFIEStatefulBase;
+	  return RFIEStatefulBase;
 	}(_RFIEBase3.default);
 
 	exports.default = RFIEStatefulBase;
@@ -38053,7 +37908,7 @@
 /* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -38098,11 +37953,11 @@
 	        };
 
 	        _this.elementClick = function (event) {
-	            throw "RIEBase must be subclassed first: use a concrete class like RIEInput, RIEToggle, RIEDate et.c";
+	            throw "RIEBase must be subclassed first: use a concrete class like RIEInput, RIEToggle, RIEDatePicker et.c";
 	        };
 
 	        _this.componentWillReceiveProps = function (nextProps) {
-	            if ('initialValue' in nextProps) _this.setState({ loading: false, editing: false, invalid: false });
+	            if ('initialValue' in nextProps) _this.setState({ editing: false, invalid: false });
 	        };
 
 	        _this.commit = function (value) {
@@ -38121,7 +37976,7 @@
 	                        tmp = nestedObject;
 	                    }
 
-	                    _this.setState({ loading: true, value: value }, function () {
+	                    _this.setState({ value: value }, function () {
 	                        _this.props.handleChange(nestedObject);
 	                    });
 	                })();
@@ -38130,29 +37985,33 @@
 
 	        _this.makeClassString = function () {
 	            var classNames = [];
+	            if (!_this.state.value) classNames.push(_this.props.classPlaceholder);
+	            if (!_this.state.editing && !_this.state.disabled) classNames.push(_this.props.classEditable);
 	            if (_this.props.className) classNames.push(_this.props.className);
-	            if (_this.state.editing && _this.props.classEditing) classNames.push(_this.props.classEditing);
-	            if (_this.state.loading && _this.props.classLoading) classNames.push(_this.props.classLoading);
 	            if (_this.state.disabled && _this.props.classDisabled) classNames.push(_this.props.classDisabled);
+	            if (_this.state.editing && _this.props.classEditing) classNames.push(_this.props.classEditing);
 	            if (_this.state.invalid && _this.props.classInvalid) classNames.push(_this.props.classInvalid);
 	            return classNames.join(' ');
 	        };
 
 	        _this.render = function () {
 	            return _react2.default.createElement(
-	                "span",
-	                _extends({}, _this.props.defaultProps, { tabindex: "0", className: _this.makeClassString(), onClick: _this.elementClick }),
-	                _this.state.value
+	                'span',
+	                _extends({}, _this.props.defaultProps, {
+	                    tabindex: '0',
+	                    className: _this.makeClassString(),
+	                    onClick: _this.elementClick
+	                }),
+	                _this.state.value || _this.props.placeholder
 	            );
 	        };
 
 	        if (!_this.props.name) throw "RTFM: missing 'name' prop";
-	        if (!_this.props.handleChange) throw "RTFM: missing 'handleChange' prop";
-	        if (!_this.props.initialValue) throw "RTFM: missing 'initialValue' prop for " + _this.props.name;
+	        if (!_this.props.handleChange) throw _this.props.name + ' Require an handlChange callback to works';
+	        if (!_this.props.placeholder) throw _this.props.name + ' Require a placeholder to works';
 
 	        _this.state = {
 	            editing: false,
-	            loading: false,
 	            disabled: false,
 	            invalid: false,
 	            value: _this.props.initialValue
@@ -38170,17 +38029,24 @@
 
 
 	RFIEBase.propTypes = {
-	    initialValue: _react2.default.PropTypes.any.isRequired,
-	    handleChange: _react2.default.PropTypes.func.isRequired,
-	    name: _react2.default.PropTypes.string.isRequired,
-	    defaultProps: _react2.default.PropTypes.object,
-	    isDisabled: _react2.default.PropTypes.bool,
-	    shouldBlockWhileLoading: _react2.default.PropTypes.bool,
-	    classLoading: _react2.default.PropTypes.string,
-	    classEditing: _react2.default.PropTypes.string,
 	    classDisabled: _react2.default.PropTypes.string,
+	    classEditable: _react2.default.PropTypes.string,
+	    classEditing: _react2.default.PropTypes.string,
 	    classInvalid: _react2.default.PropTypes.string,
-	    className: _react2.default.PropTypes.string
+	    className: _react2.default.PropTypes.string,
+	    classPlaceholder: _react2.default.PropTypes.string,
+	    handleChange: _react2.default.PropTypes.func.isRequired,
+	    initialValue: _react2.default.PropTypes.any,
+	    isDisabled: _react2.default.PropTypes.bool,
+	    name: _react2.default.PropTypes.string.isRequired,
+	    placeholder: _react2.default.PropTypes.any.isRequired
+	};
+
+	RFIEBase.defaultProps = {
+	    classDisabled: 'rfie-disabled',
+	    classEditable: 'rfie-editable',
+	    classEditing: 'rfie-editing',
+	    classPlaceholder: 'rfie-placeholder'
 	};
 
 /***/ },
@@ -38190,7 +38056,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -38214,65 +38080,64 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var RFIETextArea = function (_RFIEStatefulBase) {
-	    _inherits(RFIETextArea, _RFIEStatefulBase);
+	  _inherits(RFIETextArea, _RFIEStatefulBase);
 
-	    function RFIETextArea() {
-	        var _ref;
+	  function RFIETextArea() {
+	    var _ref;
 
-	        var _temp, _this, _ret;
+	    var _temp, _this, _ret;
 
-	        _classCallCheck(this, RFIETextArea);
+	    _classCallCheck(this, RFIETextArea);
 
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	            args[_key] = arguments[_key];
-	        }
-
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RFIETextArea.__proto__ || Object.getPrototypeOf(RFIETextArea)).call.apply(_ref, [this].concat(args))), _this), _this.keyDown = function (event) {
-	            if (event.keyCode === 27) {
-	                _this.cancelEditing();
-	            } // Escape
-	        }, _this.renderEditingComponent = function () {
-	            return _react2.default.createElement(_formsyReactBootstrap.Textarea, _extends({
-	                value: _this.state.value,
-	                disabled: _this.state.loading,
-	                className: _this.makeClassString(),
-	                defaultValue: _this.props.value,
-	                onInput: _this.textChanged,
-	                onBlur: _this.finishEditing,
-	                ref: function ref(node) {
-	                    return _this.input = node;
-	                },
-	                onKeyDown: _this.keyDown
-	            }, _this.props));
-	        }, _this.renderNormalComponent = function () {
-	            var value = _this.state.value;
-	            var spans_and_brs = [];
-	            var i = 0;
-	            value.split("\n").map(function (line) {
-	                spans_and_brs.push(_react2.default.createElement(
-	                    'span',
-	                    { key: i },
-	                    line
-	                ));
-	                spans_and_brs.push(_react2.default.createElement('br', { key: i + 1 }));
-	                i += 2;
-	            });
-	            spans_and_brs.pop(); // remove last br tag
-
-	            return _react2.default.createElement(
-	                'span',
-	                _extends({
-	                    tabIndex: '0',
-	                    className: _this.makeClassString(),
-	                    onFocus: _this.startEditing,
-	                    onClick: _this.startEditing
-	                }, _this.props.defaultProps),
-	                spans_and_brs
-	            );
-	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
 	    }
 
-	    return RFIETextArea;
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RFIETextArea.__proto__ || Object.getPrototypeOf(RFIETextArea)).call.apply(_ref, [this].concat(args))), _this), _this.keyDown = function (event) {
+	      if (event.keyCode === 27) {
+	        _this.cancelEditing();
+	      } // Escape
+	    }, _this.renderEditingComponent = function () {
+	      return _react2.default.createElement(_formsyReactBootstrap.Textarea, _extends({
+	        className: _this.makeClassString(),
+	        defaultValue: _this.props.value,
+	        onBlur: _this.finishEditing,
+	        onInput: _this.textChanged,
+	        onKeyDown: _this.keyDown,
+	        ref: function ref(node) {
+	          return _this.input = node;
+	        },
+	        value: _this.state.value
+	      }, _this.props));
+	    }, _this.renderNormalComponent = function () {
+	      var value = _this.state.value || _this.props.placeholder;
+	      var spans_and_brs = [];
+	      var i = 0;
+	      value.split("\n").map(function (line) {
+	        spans_and_brs.push(_react2.default.createElement(
+	          'span',
+	          { key: i },
+	          line
+	        ));
+	        spans_and_brs.push(_react2.default.createElement('br', { key: i + 1 }));
+	        i += 2;
+	      });
+	      spans_and_brs.pop(); // remove last br tag
+
+	      return _react2.default.createElement(
+	        'span',
+	        _extends({
+	          tabIndex: '0',
+	          className: _this.makeClassString(),
+	          onFocus: _this.startEditing,
+	          onClick: _this.startEditing
+	        }, _this.props.defaultProps),
+	        spans_and_brs || _this.props.placeholder
+	      );
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  return RFIETextArea;
 	}(_RFIEStatefulBase3.default);
 
 	exports.default = RFIETextArea;
@@ -38337,26 +38202,25 @@
 	      }
 	      _this.cancelEditing();
 	    }, _this.getCurrentSelectedLabel = function () {
-	      var label = void 0;
+	      var label = null;
 	      _this.props.options.forEach(function (option) {
 	        if (_this.state.value === option.value) label = option.label;
 	      });
 
 	      return label;
 	    }, _this.renderEditingComponent = function () {
-	      return _react2.default.createElement(_formsyReactBootstrap.Select, {
-	        value: _this.props.initialValue,
-	        disabled: _this.props.shouldBlockWhileLoading && _this.state.loading,
+	      return _react2.default.createElement(_formsyReactBootstrap.Select, _extends({
 	        className: _this.makeClassString(),
-	        onChange: _this.finishEditing,
+	        name: _this.props.name,
 	        onBlur: _this.cancelEditing,
+	        onChange: _this.finishEditing,
 	        onKeyDown: _this.keyDown,
 	        options: _this.props.options,
-	        name: _this.props.name,
 	        ref: function ref(node) {
 	          return _this.input = node;
-	        }
-	      });
+	        },
+	        value: _this.props.initialValue
+	      }, _this.props));
 	    }, _this.renderNormalComponent = function () {
 	      return _react2.default.createElement(
 	        'span',
@@ -38366,7 +38230,7 @@
 	          onFocus: _this.startEditing,
 	          onClick: _this.startEditing
 	        }, _this.props.defaultProps),
-	        _this.getCurrentSelectedLabel()
+	        _this.getCurrentSelectedLabel() || _this.props.placeholder
 	      );
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
@@ -38428,7 +38292,7 @@
 	    var _this = _possibleConstructorReturn(this, (RFIEDatePicker.__proto__ || Object.getPrototypeOf(RFIEDatePicker)).call(this, props));
 
 	    _this.getValue = function () {
-	      return _this.state.value.format(_this.props.dateFormat || "DD/MM/YYYY");
+	      return _this.state.value && _this.state.value.format(_this.props.dateFormat || "DD/MM/YYYY");
 	    };
 
 	    _this.getMomentObject = function () {
@@ -38436,9 +38300,10 @@
 	    };
 
 	    _this.handleChange = function (date) {
-	      _this.setState({ value: date });
+	      _this.setState({ value: date }, function () {
+	        _this.props.handleChange(date.format(_this.props.dateFormat || "DD/MM/YYYY"));
+	      });
 
-	      _this.props.handleChange(date.format(_this.props.dateFormat || "DD/MM/YYYY"));
 	      _this.cancelEditing();
 	    };
 
@@ -38447,7 +38312,7 @@
 	    _this.renderEditingComponent = function () {
 	      return _react2.default.createElement(_reactDatepicker2.default, _extends({
 	        autoFocus: true,
-	        selected: _this.state.value,
+	        selected: _this.state.value || (0, _moment2.default)(),
 	        onChange: _this.handleChange,
 	        dateFormat: _this.props.dateFormat || "DD/MM/YYYY",
 	        ref: function ref(node) {
@@ -38465,14 +38330,17 @@
 	          onFocus: _this.startEditing,
 	          onClick: _this.startEditing
 	        }, _this.props.defaultProps),
-	        _this.state.value.format(_this.props.dateFormat || "DD/MM/YYYY")
+	        _this.state.value && _this.state.value.format(_this.props.dateFormat || "DD/MM/YYYY") || _this.props.placeholder
 	      );
 	    };
 
-	    console.log(_this.props.dateFormat || "DD/MM/YYYY");
-	    if (typeof _this.props.initialValue !== 'string' && _typeof(_this.props.initialValue) !== new _moment2.default() && _typeof(_this.props.initialValue) !== new Date()) throw 'RTFM: initialValue for ' + _this.props.name + ' must be a string, a moment object, or a date object';
+	    if (_this.props.initialValue && typeof _this.props.initialValue !== 'string' && !(_this.props.initialValue instanceof _moment2.default) && !(_this.props.initialValue instanceof Date)) throw 'RTFM: initialValue for ' + _this.props.name + ' must be a string, a moment object, or a date object';
 
-	    if (_typeof(_this.props.initialValue) === new _moment2.default()) {
+	    if (!_this.props.initialValue) {
+	      _this.state = {
+	        value: null
+	      };
+	    } else if (_typeof(_this.props.initialValue) === new _moment2.default()) {
 	      _this.state = {
 	        value: _this.props.initialValue
 	      };
