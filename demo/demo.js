@@ -53833,7 +53833,7 @@
 	      var email = _this.props.email && 'MAILTO:' + _this.state.value;
 	      return _react2.default.createElement(
 	        'span',
-	        null,
+	        { className: 'rfie-link' },
 	        _react2.default.createElement(
 	          'a',
 	          _extends({
