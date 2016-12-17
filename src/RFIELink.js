@@ -30,7 +30,7 @@ export default class RFIELink extends RFIEStatefulBase {
     renderLink = () => {
       const email = this.props.email && 'MAILTO:' + this.state.value;
       return (
-        <span>
+        <span className="rfie-link">
           <a
             className={this.makeClassString()}
             download={this.props.download}
