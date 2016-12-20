@@ -21,7 +21,10 @@ export default class RFIEStatefulBase extends RFIEBase {
   };
 
   cancelEditing = () => {
-    this.setState({editing: false, invalid: false});
+    this.setState({
+      editing: false,
+      invalid: false,
+     });
   };
 
   keyDown = (event) => {
@@ -34,8 +37,8 @@ export default class RFIEStatefulBase extends RFIEBase {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    var inputElem = ReactDOM.findDOMNode(this.input);
     if (this.state.editing && !prevState.editing) {
+      const inputElem = ReactDOM.findDOMNode(this.input);
       inputElem.focus();
       this.selectInputText(inputElem);
     } else if (this.state.editing && prevProps.text != this.props.text) {
