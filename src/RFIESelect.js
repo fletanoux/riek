@@ -32,17 +32,20 @@ export default class RFIESelect extends RFIEStatefulBase {
   }
 
   renderEditingComponent = () => {
+    const optionsToDisplay = this.props.options.slice(0);
+    optionsToDisplay.unshift({value: null, label: this.props.placeholder});
+
     return (
       <Select
+        {...this.props}
         className={this.makeClassString()}
         name={this.props.name}
         onBlur={this.cancelEditing}
         onChange={this.finishEditing}
         onKeyDown={this.keyDown}
-        options={this.props.options}
+        options={optionsToDisplay}
         ref={node => (this.input = node)}
-        value={this.props.initialValue}
-        {...this.props}
+        value={this.state.value}
       />
     );
   };
