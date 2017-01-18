@@ -85,7 +85,7 @@ export default class RFIEStatefulBase extends RFIEBase {
       };
 
       render = () => {
-        if(this.state.editing) {
+        if(this.state.editing || this.props.forceEditing) {
           return this.renderEditingComponent();
         } else {
           return this.renderNormalComponent();
