@@ -39,7 +39,9 @@ export default class RFIEStatefulBase extends RFIEBase {
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.editing && !prevState.editing) {
       const inputElem = ReactDOM.findDOMNode(this.input);
-      if(inputElem.type !== 'number') inputElem.focus();
+
+      //TODO Fix dirty patch detecting firefox
+      if(inputElem.type !== 'number' || navigator.userAgent.search("Firefox") === -1) inputElem.focus();
       this.selectInputText(inputElem);
     } else if (this.state.editing && prevProps.text != this.props.text) {
       this.finishEditing();
