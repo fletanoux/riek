@@ -42,7 +42,8 @@ export default class RFIEDatePicker extends RFIEStatefulBase {
 
   handleChange = (date) => {
     this.setState({ value: date }, () => {
-      this.props.handleChange(date.format(this.props.dateFormat || "DD/MM/YYYY"));
+      if (date === null) this.props.handleChange(null);
+      else this.props.handleChange(date.format(this.props.dateFormat || "DD/MM/YYYY"));
     });
 
     this.cancelEditing();
