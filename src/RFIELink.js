@@ -8,6 +8,7 @@ export default class RFIELink extends RFIEStatefulBase {
       <Input
         {...this.props}
         className={this.makeClassString()}
+        elementOnly
         name={this.props.name}
         onBlur={this.finishEditing}
         onInput={this.textChanged}
