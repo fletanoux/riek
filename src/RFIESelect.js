@@ -39,6 +39,7 @@ export default class RFIESelect extends RFIEStatefulBase {
       <Select
         {...this.props}
         className={this.makeClassString()}
+        elementOnly
         name={this.props.name}
         onBlur={this.cancelEditing}
         onChange={this.finishEditing}

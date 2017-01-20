@@ -49,7 +49,9 @@ export default class RFIEStatefulBase extends RFIEBase {
   renderEditingComponent = () => {
     return (
       <Input
+        {...this.props}
         className={this.makeClassString()}
+        elementOnly
         name={this.props.name}
         onBlur={this.finishEditing}
         onInput={this.textChanged}
@@ -57,7 +59,6 @@ export default class RFIEStatefulBase extends RFIEBase {
         ref={node => (this.input = node)}
         type={this.props.type}
         value={this.state.value}
-        {...this.props}
       />);
     };
 

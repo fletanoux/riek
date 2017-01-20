@@ -54,13 +54,13 @@ export default class RFIEDatePicker extends RFIEStatefulBase {
   renderEditingComponent = () => {
     return (
       <DatePicker
-        autoFocus={true}
-        selected={this.state.value || moment()}
-        onChange={this.handleChange}
-        dateFormat={this.props.dateFormat || "DD/MM/YYYY"}
-        ref={node => (this.input = node)}
-        className={this.makeClassString("form-control")}
         {...this.props}
+        autoFocus={true}
+        className={this.makeClassString("form-control")}
+        dateFormat={this.props.dateFormat || "DD/MM/YYYY"}
+        onChange={this.handleChange}
+        ref={node => (this.input = node)}
+        selected={this.state.value || moment()}
       />
     );
   }

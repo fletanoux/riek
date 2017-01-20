@@ -6,6 +6,7 @@ export default class RFIELink extends RFIEStatefulBase {
   renderEditingComponent = () => {
     return (
       <Input
+        {...this.props}
         className={this.makeClassString()}
         name={this.props.name}
         onBlur={this.finishEditing}
@@ -15,7 +16,6 @@ export default class RFIELink extends RFIEStatefulBase {
         type={this.props.type}
         validations={this.props.email ? 'isEmail' : 'isUrl'}
         value={this.state.value}
-        {...this.props}
       />);
     };
 

@@ -14,15 +14,14 @@ export default class RFIETimeInput extends RFIEStatefulBase {
   renderEditingComponent = () => {
     return (
       <TimeInput
+        {...this.props}
         className={this.makeClassString()}
         name={this.props.name}
         onBlur={this.finishEditing}
         onInput={this.textChanged}
         onKeyDown={this.keyDown}
         ref={node => (this.input = node)}
-        type={this.props.type}
         value={this.state.value}
-        {...this.props}
       />);
     };
 }

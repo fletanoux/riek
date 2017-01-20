@@ -10,14 +10,15 @@ export default class RFIETextArea extends RFIEStatefulBase {
     renderEditingComponent = () => {
         return (
           <Textarea
+            {...this.props}
             className={this.makeClassString()}
             defaultValue={this.props.value}
+            elementOnly
             onBlur={this.finishEditing}
             onInput={this.textChanged}
             onKeyDown={this.keyDown}
             ref={node => (this.input = node)}
             value={this.state.value}
-            {...this.props}
           />
         );
     };
