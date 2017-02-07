@@ -14,7 +14,6 @@ export default class RFIELink extends RFIEStatefulBase {
         onInput={this.textChanged}
         onKeyDown={this.keyDown}
         ref={node => (this.input = node)}
-        type={this.props.type}
         validations={this.props.email ? 'isEmail' : 'isUrl'}
         value={this.state.value}
       />);

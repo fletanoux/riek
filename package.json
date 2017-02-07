@@ -1,6 +1,6 @@
 {
   "name": "rfiek",
-  "version": "0.3.2",
+  "version": "0.3.5",
   "description": "React Formsy Inline Edit Kit",
   "author": "Letanoux Florian <letanoux.florian@gmail.com>",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "react": "^0.14.0 || ^15.0.0",
     "react-dom": "^0.14.0 || ^15.0.0",
     "react-bootstrap": "^0.30.6",
-    "formsy-react-bootstrap": "^1.5.2",
+    "formsy-react-bootstrap": "^1.5.3",
     "moment": "^2.17.1",
     "react-datepicker": "^0.39.0"
   },

@@ -144,8 +144,35 @@
 	                classLoading: 'loading',
 	                handleChange: _this.virtualServerCallback
 	                // initialValue={this.state.textarea}
-	                , name: 'a.b',
+	                , name: 'a.b.c',
 	                placeholder: 'placeholder textarea'
+	              }),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'With initial value : '
+	              ),
+	              _react2.default.createElement(_index.RFIETextArea, {
+	                classInvalid: 'invalid',
+	                classLoading: 'loading',
+	                handleChange: _this.virtualServerCallback,
+	                initialValue: 'Initial value',
+	                name: 'a.b.d',
+	                placeholder: 'placeholder textarea'
+	              }),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'Forced editing state: '
+	              ),
+	              _react2.default.createElement(_index.RFIETextArea, {
+	                classInvalid: 'invalid',
+	                classLoading: 'loading',
+	                handleChange: _this.virtualServerCallback
+	                // initialValue={this.state.textarea}
+	                , name: 'a.b.e',
+	                placeholder: 'placeholder textarea',
+	                forceEditing: true
 	              })
 	            ),
 	            _react2.default.createElement('hr', null),
@@ -164,7 +191,7 @@
 	              ),
 	              _react2.default.createElement(_index.RFIELink, {
 	                handleChange: _this.virtualServerCallback,
-	                initialValue: 'http://mudita-music.com',
+	                initialValue: undefined,
 	                name: 'a.b',
 	                placeholder: 'placeholder link',
 	                iconClassName: 'icon icon-pen'
@@ -222,9 +249,6 @@
 	                null,
 	                'Default: '
 	              ),
-	              _react2.default.createElement('input', { type: 'number', onBlur: function onBlur() {
-	                  console.log("blur");
-	                } }),
 	              _react2.default.createElement(_index.RFIEInput, {
 	                classInvalid: 'invalid',
 	                classLoading: 'loading',
@@ -275,7 +299,8 @@
 	                placeholder: 'placeholder time',
 	                ref: function ref(node) {
 	                  return _this.time = node;
-	                }
+	                },
+	                disabled: true
 	              })
 	            ),
 	            _react2.default.createElement('hr', null),
@@ -481,7 +506,7 @@
 
 	    _this.handleChange = function (date) {
 	      _this.setState({ value: date }, function () {
-	        _this.props.handleChange(date.format(_this.props.dateFormat || "DD/MM/YYYY"));
+	        if (date === null) _this.props.handleChange(null);else _this.props.handleChange(date.format(_this.props.dateFormat || "DD/MM/YYYY"));
 	      });
 
 	      _this.cancelEditing();
@@ -490,16 +515,16 @@
 	    _this.componentDidUpdate = function () {};
 
 	    _this.renderEditingComponent = function () {
-	      return _react2.default.createElement(_reactDatepicker2.default, _extends({
+	      return _react2.default.createElement(_reactDatepicker2.default, _extends({}, _this.props, {
 	        autoFocus: true,
-	        selected: _this.state.value || (0, _moment2.default)(),
-	        onChange: _this.handleChange,
+	        className: _this.makeClassString("form-control"),
 	        dateFormat: _this.props.dateFormat || "DD/MM/YYYY",
+	        onChange: _this.handleChange,
 	        ref: function ref(node) {
 	          return _this.input = node;
 	        },
-	        className: _this.makeClassString("form-control")
-	      }, _this.props));
+	        selected: _this.state.value || (0, _moment2.default)()
+	      }));
 	    };
 
 	    _this.renderNormalComponent = function () {
@@ -16154,7 +16179,9 @@
 	    _this.componentDidUpdate = function (prevProps, prevState) {
 	      if (_this.state.editing && !prevState.editing) {
 	        var inputElem = _reactDom2.default.findDOMNode(_this.input);
-	        if (inputElem.type !== 'number') inputElem.focus();
+
+	        //TODO Fix dirty patch detecting firefox
+	        if (inputElem.type !== 'number' || navigator.userAgent.search("Firefox") === -1) inputElem.focus();
 	        _this.selectInputText(inputElem);
 	      } else if (_this.state.editing && prevProps.text != _this.props.text) {
 	        _this.finishEditing();
@@ -16162,8 +16189,9 @@
 	    };
 
 	    _this.renderEditingComponent = function () {
-	      return _react2.default.createElement(_formsyReactBootstrap.Input, _extends({
+	      return _react2.default.createElement(_formsyReactBootstrap.Input, _extends({}, _this.props, {
 	        className: _this.makeClassString(),
+	        elementOnly: true,
 	        name: _this.props.name,
 	        onBlur: _this.finishEditing,
 	        onInput: _this.textChanged,
@@ -16173,7 +16201,7 @@
 	        },
 	        type: _this.props.type,
 	        value: _this.state.value
-	      }, _this.props));
+	      }));
 	    };
 
 	    _this.renderNormalComponent = function () {
@@ -16199,7 +16227,7 @@
 	    };
 
 	    _this.render = function () {
-	      if (_this.state.editing) {
+	      if (_this.state.editing || _this.props.forceEditing) {
 	        return _this.renderEditingComponent();
 	      } else {
 	        return _this.renderNormalComponent();
@@ -37341,8 +37369,9 @@
 	    }
 
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RFIELink.__proto__ || Object.getPrototypeOf(RFIELink)).call.apply(_ref, [this].concat(args))), _this), _this.renderEditingComponent = function () {
-	      return _react2.default.createElement(_formsyReactBootstrap.Input, _extends({
+	      return _react2.default.createElement(_formsyReactBootstrap.Input, _extends({}, _this.props, {
 	        className: _this.makeClassString(),
+	        elementOnly: true,
 	        name: _this.props.name,
 	        onBlur: _this.finishEditing,
 	        onInput: _this.textChanged,
@@ -37350,10 +37379,9 @@
 	        ref: function ref(node) {
 	          return _this.input = node;
 	        },
-	        type: _this.props.type,
 	        validations: _this.props.email ? 'isEmail' : 'isUrl',
 	        value: _this.state.value
-	      }, _this.props));
+	      }));
 	    }, _this.renderNormalComponent = function () {
 	      if (_this.state.value) {
 	        return _this.renderLink();
@@ -37482,18 +37510,22 @@
 
 	      return label;
 	    }, _this.renderEditingComponent = function () {
-	      return _react2.default.createElement(_formsyReactBootstrap.Select, _extends({
+	      var optionsToDisplay = _this.props.options.slice(0);
+	      optionsToDisplay.unshift({ value: null, label: _this.props.placeholder });
+
+	      return _react2.default.createElement(_formsyReactBootstrap.Select, _extends({}, _this.props, {
 	        className: _this.makeClassString(),
+	        elementOnly: true,
 	        name: _this.props.name,
 	        onBlur: _this.cancelEditing,
 	        onChange: _this.finishEditing,
 	        onKeyDown: _this.keyDown,
-	        options: _this.props.options,
+	        options: optionsToDisplay,
 	        ref: function ref(node) {
 	          return _this.input = node;
 	        },
-	        value: _this.props.initialValue
-	      }, _this.props));
+	        value: _this.state.value
+	      }));
 	    }, _this.renderNormalComponent = function () {
 	      return _react2.default.createElement(
 	        'span',
@@ -37565,9 +37597,10 @@
 	        _this.cancelEditing();
 	      } // Escape
 	    }, _this.renderEditingComponent = function () {
-	      return _react2.default.createElement(_formsyReactBootstrap.Textarea, _extends({
+	      return _react2.default.createElement(_formsyReactBootstrap.Textarea, _extends({}, _this.props, {
 	        className: _this.makeClassString(),
 	        defaultValue: _this.props.value,
+	        elementOnly: true,
 	        onBlur: _this.finishEditing,
 	        onInput: _this.textChanged,
 	        onKeyDown: _this.keyDown,
@@ -37575,7 +37608,7 @@
 	          return _this.input = node;
 	        },
 	        value: _this.state.value
-	      }, _this.props));
+	      }));
 	    }, _this.renderNormalComponent = function () {
 	      var value = _this.state.value || _this.props.placeholder;
 	      var spans_and_brs = [];
@@ -37658,7 +37691,7 @@
 	        _this.setState({ value: '' });
 	      };
 	    }, _this.renderEditingComponent = function () {
-	      return _react2.default.createElement(_formsyReactBootstrap.TimeInput, _extends({
+	      return _react2.default.createElement(_formsyReactBootstrap.TimeInput, _extends({}, _this.props, {
 	        className: _this.makeClassString(),
 	        name: _this.props.name,
 	        onBlur: _this.finishEditing,
@@ -37667,9 +37700,8 @@
 	        ref: function ref(node) {
 	          return _this.input = node;
 	        },
-	        type: _this.props.type,
 	        value: _this.state.value
-	      }, _this.props));
+	      }));
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 

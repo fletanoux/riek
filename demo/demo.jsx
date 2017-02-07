@@ -84,8 +84,27 @@ import {
                 classLoading="loading"
                 handleChange={this.virtualServerCallback}
                 // initialValue={this.state.textarea}
-                name="a.b"
+                name="a.b.c"
                 placeholder="placeholder textarea"
+              />
+              <p>With initial value : </p>
+              <RFIETextArea
+                classInvalid="invalid"
+                classLoading="loading"
+                handleChange={this.virtualServerCallback}
+                initialValue="Initial value"
+                name="a.b.d"
+                placeholder="placeholder textarea"
+              />
+              <p>Forced editing state: </p>
+              <RFIETextArea
+                classInvalid="invalid"
+                classLoading="loading"
+                handleChange={this.virtualServerCallback}
+                // initialValue={this.state.textarea}
+                name="a.b.e"
+                placeholder="placeholder textarea"
+                forceEditing
               />
             </div>
             <hr />
@@ -94,7 +113,7 @@ import {
               <p>Default : </p>
               <RFIELink
                 handleChange={this.virtualServerCallback}
-                initialValue="http://mudita-music.com"
+                initialValue={undefined}
                 name="a.b"
                 placeholder="placeholder link"
                 iconClassName="icon icon-pen"
@@ -131,9 +150,7 @@ import {
             <h3>Number</h3>
             <div>
               <span>Default: </span>
-
-              <input type="number" onBlur={() => { console.log("blur")}} />
-
+              
               <RFIEInput
                 classInvalid="invalid"
                 classLoading="loading"
@@ -169,6 +186,7 @@ import {
                 name="time"
                 placeholder="placeholder time"
                 ref={node => (this.time = node)}
+                disabled
               />
             </div>
             <hr />
