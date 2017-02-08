@@ -8,6 +8,14 @@ export default class RFIESelect extends RFIEStatefulBase {
     options: React.PropTypes.array.isRequired
   };
 
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount(){
+    this.setState({keyPressed: false});
+  }
+
   finishEditing = (name, value) => {
     // get the object from options that matches user selected value
     const newValue = this.props.options.find(function(option) {
@@ -20,12 +28,19 @@ export default class RFIESelect extends RFIEStatefulBase {
       this.commit(newValue.value);
     }
 
-    this.cancelEditing();
+    if(!this.state.keyPressed) {
+      this.cancelEditing();
+    } else {
+      this.setState({keyPressed: false});
+    }
   };
 
   keyDown = (event) => {
-    if(event.keyCode === 13) { this.finishEditing('',event.target.value) }           // Enter
-    else if (event.keyCode === 27) { this.cancelEditing() }     // Escape
+    if(event.keyCode === 13 || event.keyCode === 27) {
+      this.cancelEditing()
+    } else {
+      this.setState({keyPressed: true});
+    }
   };
 
   getCurrentSelectedLabel = () => {
