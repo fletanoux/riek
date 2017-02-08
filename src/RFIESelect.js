@@ -15,10 +15,17 @@ export default class RFIESelect extends RFIEStatefulBase {
     }, this);
 
     this.setValidationState(true);
-    if(!this.state.invalid && this.state.value !== newValue.value) {
+
+    if(!this.state.invalid && newValue && this.state.value !== newValue.value) {
       this.commit(newValue.value);
     }
+
     this.cancelEditing();
+  };
+
+  keyDown = (event) => {
+    if(event.keyCode === 13) { this.finishEditing('',event.target.value) }           // Enter
+    else if (event.keyCode === 27) { this.cancelEditing() }     // Escape
   };
 
   getCurrentSelectedLabel = () => {
@@ -38,6 +45,7 @@ export default class RFIESelect extends RFIEStatefulBase {
     return (
       <Select
         {...this.props}
+        autofocus
         className={this.makeClassString()}
         elementOnly
         name={this.props.name}
