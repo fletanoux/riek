@@ -60,6 +60,7 @@ export default class RFIEDatePicker extends RFIEStatefulBase {
         className={this.makeClassString("form-control")}
         dateFormat={this.props.dateFormat || "DD/MM/YYYY"}
         onChange={this.handleChange}
+        onBlur={this.cancelEditing()}
         ref={node => (this.input = node)}
         selected={this.state.value || moment()}
       />
